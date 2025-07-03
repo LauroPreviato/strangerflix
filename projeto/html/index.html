@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Netflix</title>
     <link rel="stylesheet" href="css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <header></header>
     <main>
         <div id="login">
             <h1 id="titulo">Entrar</h1>
-            <div id="informacoes">
-                <input type="text" id="email" placeholder="email@exemple.com">
-                <input type="password" name="senha" id="senha" placeholder="sua_senha">
-                <div id="bot-envi"><input type="submit" value="Entrar"></div>
-            </div>
+                <form action="enviar" method="post" id="informacoes">
+                    <input type="text" id="email" placeholder="email@exemple.com">
+                    <input type="password" name="senha" id="senha" placeholder="sua_senha">
+                    <div id="lembrarSenha"><label for="radio">Lembrar senha?<input type="radio"></label></div>
+                    <div id="bot-envi"><input type="submit" value="Entrar"></div>
+                </form>
         </div>
     </main>
     <script></script>

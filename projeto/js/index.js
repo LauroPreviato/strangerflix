@@ -1,43 +1,29 @@
-function capturaFormulario(){
-    const form = document.querySelector('#informacoes');
-    
-    form.addEventListener('submit', function recebeEventoForm (evento) {
-        evento.preventDefault();
-        const email = form.querySelector('#email');
-        const senha = form.querySelector('#senha');
 
-            
+const form = document.querySelector('#informacoes');
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const email = form.querySelector('#email').value;
+  const senha = form.querySelector('#senha').value;
+
+  try {
+    const response = await fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, senha }),
     });
 
-    return email, senha;
-}
-function capturaDadosBanco(email,senha){ 
-    let {MongoClient, ObjetcId} = require("mongodb");
+    const data = await response.json();
 
-    let userName = "usuario";
-    let password = "123456789987456321";
-    let cluster = "cluster0";
-    let dbname = "strangerflix";
-    let collectionName = "login's";
-
-    const url = `mongodb+srv://${userName}:${password}@${cluster}.iedga6s.mongodb.net/${dbname}?retryWrites=true&w=majority`;
-    const client = new MongoClient(url);
-
-    async function main() {
-    await client.connect(); 
-    console.log("conectado ao mongodb");
-
-    let db = client.db(dbname); 
-    let collection = db.collection(collectionName);
-    const filtro = {
-        'email':email,
-        'senha':senha
-    };
-    login = await collection.find({filtro}).toArray();
-    console.log(login);
-
-    await client.close();
+    if (response.ok) {
+      alert(data.message);
+      window.location.href = '/projeto/html/perfis.html';
+    } else {
+      alert('Erro: ' + data.message);
     }
-    main();
-}
-capturaDadosBanco();
+  } catch (error) {
+    alert('Erro na conexão com o servidor');
+    console.error(error);
+  }
+});

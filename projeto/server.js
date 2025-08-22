@@ -7,8 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // para ler JSON do body da requisição
 
-app.use(express.static(path.join(__dirname, 'projeto')));
-
 let userName = "usuario";
 let password = "123456789987456321";
 let cluster = "cluster0";
@@ -20,7 +18,7 @@ const client = new MongoClient(url);
 
 app.post('/login', async (req, res) => {
   const { email, senha } = req.body;
-  //const loginDigitado = {email, senha};
+  // console.log('foi')
   
 
   try {
@@ -38,8 +36,6 @@ app.post('/login', async (req, res) => {
     }
   
 
-    await client.close();
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Erro no servidor' });
@@ -47,6 +43,13 @@ app.post('/login', async (req, res) => {
     await client.close();
   }
 });
+
+
+app.use(express.static(path.join(__dirname, 'public',)));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'html', 'login.html'));
+});
+
 
 app.listen(3000, () => {
   console.log('Servidor rodando na porta 3000');

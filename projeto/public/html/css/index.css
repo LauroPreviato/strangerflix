@@ -46,7 +46,7 @@ input[type="password"]{
     padding: 5px;
     border-radius: 5px;
 }
-#bot-envi input[type="submit"]{
+#bot-envi{
     color: #000000;
     background-color: #D1321F;
     border-radius: 5px;
